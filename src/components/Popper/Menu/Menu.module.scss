@@ -1,0 +1,43 @@
+.menu-result {
+  width: 100%;
+}
+.LiItemWrapper {
+  padding: 10px 16px;
+  list-style-type: none;
+  cursor: pointer;
+  &:hover {
+    background: var(--default-background-white-hover);
+  }
+}
+.UlItemWrapper {
+  font-family: "IBM Plex Sans", ProximaNova, Arial, Tahoma, PingFangSC,
+    sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 8px 0px;
+  margin: 0px;
+  min-width: 223px;
+  list-style: none;
+}
+//header-level
+.header-level{
+  position: relative;
+  height: 50px;
+  margin-top: -8px;
+}
+.back-level{
+  width: 50px;
+  height: 100%;
+  background-color: transparent;
+  cursor: pointer;
+}
+.title-level{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.logout{
+  border-top: 1px solid rgba(22, 24, 35, 0.12);
+}
