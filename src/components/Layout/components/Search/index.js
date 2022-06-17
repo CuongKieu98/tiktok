@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import HeadlessTippy from "@tippyjs/react/headless"; // different import path!
 import { Wrapper as PopperWrapper } from "~/components/Popper";
+import { useDebounce } from "~/hooks";
 import {
   faCircleXmark,
   faMagnifyingGlass,
@@ -20,14 +21,15 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResult,setShowResult] = useState(true);
   const [loading,setLoading] = useState(false);
+  const debounced = useDebounce(searchValue,800)
   
   useEffect(() =>{
-    if(!searchValue.trim()) {
+    if(!debounced.trim()) {
         setSearchResult([])
         return
     };
     setLoading(true);
-    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
     .then(res =>res.json())
     .then(res =>{
         setSearchResult(res.data);
@@ -36,7 +38,7 @@ function Search() {
     .catch(() =>{
         setLoading(false)
     })
-  },[searchValue])
+  },[debounced])
   const handleClear = () =>{
     setSearchValue("");
     setSearchResult([])
@@ -59,7 +61,7 @@ function Search() {
               <div className={cx("search-item")}>
                 <div className={cx("account-title")}>Tài khoản</div>
                 {searchResult?.map(result =>(
-                    <AccountItem key={result.id} data={result}/>
+                    <AccountItem key={result.id} data={result} />
                 ))}
               </div>
             </PopperWrapper>
